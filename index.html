@@ -56,16 +56,15 @@
 
   <main>
     <section id="sobre" class="containerSobre" aria-labelledby="titulo-sobre">
-      <h1 id="titulo-sobre" class="subtitulo">Sobre</h1>
+      <h1 id="titulo-sobre" class="subtitulo">Kelen Machado</h1>
+      <h2 class="titulo"><strong>Especialista em DP, Analista de RH e Dados</strong></h2>
     </section>
 
     <section class="backgroundContainerSobre">
       <div class="container">
         <figure class="circulo">
           <img src="img/Foto_Perfil.webp" width="180" height="180" alt="Foto de Kelen Machado sorrindo" loading="eager" fetchpriority="high" decoding="async" />
-        </figure>
-        <h2 class="subtitulonome"><strong>Kelen Machado</strong></h2>
-        <h3 class="titulo"><strong>Especialista em DP, Analista de RH e Dados</strong></h3>
+        </figure>   
 
         <div class="accordion-container">
           <button class="accordion">Experiência</button>
@@ -105,10 +104,11 @@
     
     <section id="habilidades" class="skills-section">
       <div class="habilidades-container">
-      <h2 class="subtitulo">Habilidades</h2>
+        <h2 class="subtitulo">Habilidades</h2>
+      </div>
 
-      <div class="accordion">
-        <button class="accordion-toggle">Hard Skills</button>
+      <button class="accordion-toggle">Hard Skills</button>
+
       <div class="accordion-content">
         <ul>
           <li>Legislação Trabalhista <span class="stars" data-tooltip="5">★★★★★</span></li>
@@ -123,6 +123,7 @@
       </div>
 
       <button class="accordion-toggle">Soft Skills</button>
+
       <div class="accordion-content">
         <ul>
           <li>Comunicação <span class="stars" data-tooltip="4">★★★★☆</span></li>
@@ -165,10 +166,9 @@
     <section id="projetos" class="containerTrabalhos" aria-labelledby="titulo-projetos" style="padding: 60px 20px;">
       <h2 id="titulo-projetos" class="subtitulo" data-animar>Projetos</h2>
 
-      <div class="carrossel-container" data-animar>
+      <div class="carrossel-container">
         <button class="carrossel-btn anterior" aria-label="Projeto anterior">&#10094;</button>
-        <button class="carrossel-btn proximo" aria-label="Próximo projeto">&#10095;</button>
-
+        
         <div class="carrossel-slides">
           <div class="dashboard slide ativo">
             <h3>📊 Gestão de Pessoas</h3>
@@ -177,26 +177,31 @@
             </div>
           </div>
 
-          <div class="dashboard slide ativo">
+          <div class="dashboard slide">
             <h3>🚚 Logística</h3>
             <div class="iframe-wrapper">
               <iframe title="Logistica" src="https://app.powerbi.com/view?r=eyJrIjoiMzNhOTA1OTctNjkzNi00Yjg3LTk3ZDYtODE1ZWE0YjFjYTE4IiwidCI6IjY4MjcxOGUxLWEyNDItNGYyZS1hNTIzLTI5MmM4YjIzNjJlYiJ9" frameborder="0" allowFullScreen="true"></iframe>
             </div>
           </div>
 
-          <div class="dashboard slide ativo">
+          <div class="dashboard slide">
             <h3>📣 Marketing</h3>
             <div class="iframe-wrapper">
               <iframe title="Marketing" src="https://app.powerbi.com/view?r=eyJrIjoiMTRhYThkYzctMjI4ZS00NThlLTg4NzUtZWIzMWI2ODUwNzJjIiwidCI6IjY4MjcxOGUxLWEyNDItNGYyZS1hNTIzLTI5MmM4YjIzNjJlYiJ9" frameborder="0" allowFullScreen="true"></iframe>
             </div>
           </div>
 
-          <div class="dashboard slide ativo">
+          <div class="dashboard slide">
             <h3>🌐 Site da Uníntese</h3>
             <div class="iframe-wrapper">
               <iframe title="Site Uníntese" src="https://kelenmachado.github.io/Site-Desenvolvido-em-Sala/" frameborder="0" allowFullScreen="true"></iframe>
             </div>
           </div>
+        </div>
+
+        <button class="carrossel-btn proximo" aria-label="Próximo projeto">&#10095;</button>
+
+      </div>
     </section>
 
     <section id="convite" class="containerConvite" aria-labelledby="titulo-convite">
@@ -299,44 +304,146 @@
       toggle.addEventListener("click", function () {
         const content = this.nextElementSibling;
 
-        // Fecha todos os outros
-        document.querySelectorAll('.accordion-content').forEach(el => {
-          if (el !== content) el.style.maxHeight = null;
+        // Fecha todos os outros painéis e remove classe active dos outros botões
+        toggles.forEach(btn => {
+          if (btn !== this) {
+            btn.classList.remove('active');
+            const painel = btn.nextElementSibling;
+            if(painel) painel.style.maxHeight = null;
+          }
         });
 
-        // Alterna visibilidade
+        // Alterna este painel
         if (content.style.maxHeight) {
           content.style.maxHeight = null;
+          this.classList.remove('active');
         } else {
           content.style.maxHeight = content.scrollHeight + "px";
+          this.classList.add('active');
         }
       });
     });
+
   </script>
 
   <script>
     const slides = document.querySelectorAll('.slide');
-    const btnAnterior = document.querySelector('.anterior');
-    const btnProximo = document.querySelector('.proximo');
+    const btnAnterior = document.querySelector('.carrossel-btn.anterior');
+    const btnProximo = document.querySelector('.carrossel-btn.proximo');
     let slideAtual = 0;
+    const autoplayInterval = 4000; // 4 segundos
 
-    function mostrarSlide(index) {
-      slides.forEach(slide => slide.classList.remove('ativo'));
-      slides[index].classList.add('ativo');
+    // Cria indicadores
+    const indicadoresContainer = document.createElement('div');
+    indicadoresContainer.classList.add('indicadores');
+
+    slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.setAttribute('aria-label', `Slide ${i + 1}`);
+      btn.addEventListener('click', () => {
+        slideAtual = i;
+        mostrarSlide(slideAtual);
+        resetAutoplay();
+        atualizarIndicadores();
+      });
+      indicadoresContainer.appendChild(btn);
+    });
+
+    const carrosselContainer = document.querySelector('.carrossel-container');
+    carrosselContainer.appendChild(indicadoresContainer);
+
+    function mostrarSlide(indice) {
+      slides.forEach((slide, i) => {
+        if(i === indice) {
+          slide.style.display = 'block';
+          slide.classList.add('ativo');
+        } else {
+          slide.style.display = 'none';
+          slide.classList.remove('ativo');
+        }
+      });
     }
 
-    btnAnterior.addEventListener('click', () => {
-      slideAtual = (slideAtual === 0) ? slides.length - 1 : slideAtual - 1;
+    function atualizarIndicadores() {
+      const botoes = indicadoresContainer.querySelectorAll('button');
+      botoes.forEach((btn, i) => {
+        if(i === slideAtual) {
+          btn.classList.add('ativo');
+        } else {
+          btn.classList.remove('ativo');
+        }
+      });
+    }
+
+    function proximoSlide() {
+      slideAtual = (slideAtual + 1) % slides.length;
       mostrarSlide(slideAtual);
-    });
+      atualizarIndicadores();
+    }
+
+    function anteriorSlide() {
+      slideAtual = (slideAtual - 1 + slides.length) % slides.length;
+      mostrarSlide(slideAtual);
+      atualizarIndicadores();
+    }
 
     btnProximo.addEventListener('click', () => {
-      slideAtual = (slideAtual === slides.length - 1) ? 0 : slideAtual + 1;
-      mostrarSlide(slideAtual);
+      proximoSlide();
+      resetAutoplay();
     });
 
-    // Mostrar o primeiro slide ao carregar
+    btnAnterior.addEventListener('click', () => {
+      anteriorSlide();
+      resetAutoplay();
+    });
+
+    let autoplay = setInterval(proximoSlide, autoplayInterval);
+
+    function resetAutoplay() {
+      clearInterval(autoplay);
+      autoplay = setInterval(proximoSlide, autoplayInterval);
+    }
+
+    // Inicialização
     mostrarSlide(slideAtual);
+    atualizarIndicadores();
+
+  </script>
+
+  <script>
+    // Cria os botões indicadores dinamicamente
+    const indicadoresContainer = document.createElement('div');
+    indicadoresContainer.classList.add('indicadores');
+
+    slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.setAttribute('aria-label', `Slide ${i + 1}`);
+      btn.addEventListener('click', () => {
+        slideAtual = i;
+        mostrarSlide(slideAtual);
+        resetAutoplay();
+        atualizarIndicadores();
+      });
+      indicadoresContainer.appendChild(btn);
+    });
+
+    const carrosselContainer = document.querySelector('.carrossel-container');
+    carrosselContainer.appendChild(indicadoresContainer);
+
+    function atualizarIndicadores() {
+      const botoes = indicadoresContainer.querySelectorAll('button');
+      botoes.forEach((btn, i) => {
+        if(i === slideAtual) {
+          btn.classList.add('ativo');
+        } else {
+          btn.classList.remove('ativo');
+        }
+      });
+    }
+
+    mostrarSlide(slideAtual);
+    atualizarIndicadores();
+
   </script>
 
 </body>
