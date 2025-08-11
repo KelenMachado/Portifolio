@@ -230,7 +230,7 @@ section {
   font-size: 1.2rem;
   font-weight: normal;
   margin-bottom: 40px;
-  color: #d9eaff;
+  color: var(--azul-escuro);
 }
 
 /* Estilo do acordeon */
@@ -341,7 +341,7 @@ section {
 
 .stars {
   color: gold;
-  font-size: 18px;
+  font-size: 23px;
 }
 
 .accordion {
@@ -390,17 +390,26 @@ section {
 }
 
 .legend-container {
-  max-width: 400px;
+  max-width: 800px;
   margin: 15px auto 0 auto;
   background-color: #e6ecf3;
   padding: 5px 10px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.legend-section {
+  flex: 1;
+  min-width: 200px;
 }
 
 .legend-container h3 {
   margin-bottom: 10px;
-  font-size: 12px;
+  font-size: 10px;
   color: #003366;
 }
 
@@ -410,11 +419,11 @@ section {
 }
 
 .legend-list li {
-  margin: 8px 0;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 11px;
+  font-size: 10px;
   color: #333;
 }
 
@@ -428,6 +437,7 @@ section {
   position: relative;
   overflow: hidden;
   max-width: 100%;
+  padding-bottom: 50px;
 }
 
 .carrossel-slides {
@@ -447,8 +457,7 @@ section {
 
 .carrossel-btn {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 10px;
   background-color: #003366cc;
   color: white;
   border: none;
@@ -457,14 +466,19 @@ section {
   cursor: pointer;
   z-index: 10;
   border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .carrossel-btn.anterior {
-  left: 200px;
+  left: 50px;
 }
 
 .carrossel-btn.proximo {
-  right: 200px;
+  right: 50px;
 }
 
 .iframe-wrapper iframe {
