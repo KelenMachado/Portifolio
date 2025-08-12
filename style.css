@@ -793,7 +793,7 @@ footer {
 @media (max-width: 768px) {
   /* Menu fica empilhado se necessário */
   nav ul {
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.5rem;
   }
 
