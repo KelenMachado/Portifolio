@@ -775,6 +775,11 @@ footer {
 
 /* Ajustes para telas até 820px (tablets em modo retrato) */
 @media (max-width: 820px) {
+    nav ul {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  
   .carrossel-container {
     padding: 1rem;
   }
@@ -857,6 +862,11 @@ footer {
 
 /* Ajustes para telas pequenas até 480px */
 @media (max-width: 480px) {
+    nav ul {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  
   header {
     padding: 0.8rem 0;
   }
