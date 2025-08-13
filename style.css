@@ -820,8 +820,8 @@ footer {
     width: 90%;
     max-width: 800px;
     margin: 0 auto;
+    margin-bottom: 8px;
     box-sizing: border-box;
-    gap: 0.5rem;
   }
 
   /* Ajusta habilidades para coluna única */  
