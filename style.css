@@ -823,8 +823,10 @@ footer {
     box-sizing: border-box;
   }
 
-  .accordion {
-    margin-bottom: 8px;
+  .accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
   /* Ajusta habilidades para coluna única */  
