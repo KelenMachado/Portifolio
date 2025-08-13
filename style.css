@@ -818,7 +818,7 @@ footer {
   /* Ajusta habilidades para coluna única */
   .accordion-toggle,
   .skills-buttons button {
-    width: 80%;
+    width: 100%;
     max-width: 800px;
     box-sizing: border-box;
   }
